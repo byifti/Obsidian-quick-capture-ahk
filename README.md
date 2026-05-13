@@ -31,7 +31,7 @@ This is an AutoHotKey script that allows user to write a ".md" file on a specifi
 # Configuration 
 ### Hotkey Setup
 
-By default the hotkey is set to `Alt+Shift+Q`. To change it, go to script.ahk and open it in your code editor and just replace 
+By default the hotkey is set to `Alt+Shift+Q`. To change it, go to ObsidianQuickCapture.ahk and open it in your code editor and just replace 
 
 ```
 !+q
