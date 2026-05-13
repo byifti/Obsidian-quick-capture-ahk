@@ -39,7 +39,7 @@ By default the hotkey is set to `Alt+Shift+Q`. To change it, go to script.ahk an
 
 with whatever hotkey you want. Check out [list of hotkeys](https://www.autohotkey.com/docs/v2/KeyList.htm) for reference
 
-#### Vault Setup
+### Vault Setup
 
 By default the `.md` file is saved at `C:\Users\<YourUsername>\Desktop`. Change the 
 
