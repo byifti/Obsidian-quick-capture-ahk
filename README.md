@@ -18,13 +18,13 @@ This is an AutoHotKey script that allows user to write a ".md" file on a specifi
 
 # Installation
 
-1) Download the script.ahk file from my repo
+1) Download the ObsidianQuickCapture.ahk file from my repo
 2) Download dependencies ([AutoHotkey v2.0](https://www.autohotkey.com/))
 3) Press windows + r
 4) Type shell:startup and enter 
-5) Put the script.ahk in that folder *(So that it turns on in startup)*
+5) Put the ObsidianQuickCapture.ahk in that folder *(So that it turns on in startup)*
 6) Configure it by following the steps below
-7) Click it *(You only need to click it for the first time. If it doesn't work, then try reloading the script from your system tray)*
+7) Click it *(You only need to click it for the first time. If it doesn't work then try reloading the script from your system tray)*
 
 
 
@@ -44,12 +44,12 @@ with whatever hotkey you want. Check out [list of hotkeys](https://www.autohotke
 By default the `.md` file is saved at `C:\Users\<YourUsername>\Desktop`. Change the 
 
 ```
-path := "`C:\Users\<YourUsername>\Desktop`"
+path := A_Desktop
 ```
 
 to your vault's path. eg.
 ```
-path := "D:\Obsidian Vaults\Yggdrasil\"
+path := "D:\Obsidian Vaults\Yggdrasil\" name ".md"
 ```
 
 Now it should work perfectly! Press your hotkey to check it out! 🔥
