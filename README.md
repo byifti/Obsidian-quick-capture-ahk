@@ -9,7 +9,7 @@ This is an AutoHotKey script that allows user to write a ".md" file on a specifi
 - Lightweight and minimal
 - Does not need to open Obsidian app at all
 - Lives in your system tray 
-
+- Untitled notes automatically get timestamped title (Hour:Min DD-MM-YY Format)
 
 
 # Dependencies
