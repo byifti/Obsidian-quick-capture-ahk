@@ -140,12 +140,16 @@ ShowCapture() {
     contentBox := g.AddEdit("w360 r8 y+5 Background0f1318 Multi -E0x200", "")
     contentBox.SetFont("s10 ce8e0d4", "Comic Relief")
 
+    g.SetFont("s8 c7ab4c8", "Comic Relief")
+    g.AddText("w360 y+12", "TAGS  (optional)")
+    tagBox := g.AddEdit("w360 r2 y+5 Background0f1318 Multi -E0x200", "")
+    tagBox.SetFont("s10 ce8e0d4", "Comic Relief")
+
     g.SetFont("s7 c2a5068", "Comic Relief")
     g.AddText("w360 y+10 h1 Background2a5068", "")
     g.SetFont("s7 c2a5068", "Comic Relief")
-    g.AddText("w360 y+6 Center", "Enter — Create  ·  Shift+Enter — New line  ·  Esc — Cancel")
+    g.AddText("w360 y+6 Center", "Enter — Create  ·  Shift+Enter — New line  ·  Tab — Tags  ·  Esc — Cancel")
 
-    ; Inline error label — empty until needed
     errLabel := g.AddText("w360 y+6 cFF4444 Center", "")
     errLabel.SetFont("s8", "Comic Relief")
 
@@ -154,7 +158,7 @@ ShowCapture() {
     btnCancel := g.AddButton("x+8 w176 Background1c2430 -E0x200", "CANCEL")
     btnCancel.SetFont("s9 c7ab4c8", "Comic Relief")
 
-    s := {g: g, nameBox: nameBox, contentBox: contentBox, vaultPath: vaultPath, errLabel: errLabel}
+    s := {g: g, nameBox: nameBox, contentBox: contentBox, tagBox: tagBox, vaultPath: vaultPath, errLabel: errLabel}
 
     btnCreate.OnEvent("Click", (*) => CreateNote(s))
     btnCancel.OnEvent("Click", (*) => g.Destroy())
@@ -164,6 +168,8 @@ ShowCapture() {
     Hotkey "Escape",     (*) => g.Destroy()
     Hotkey "^Backspace", (*) => Send("^+{Left}{Backspace}")
     Hotkey "*Enter",     OnEnter.Bind(s)
+    Hotkey "Tab",        OnTab.Bind(s)
+    Hotkey "*Space",     OnSpace.Bind(s)
     HotIfWinActive
 
     g.Show("w400 AutoSize")
@@ -334,6 +340,57 @@ RoundCorners(hwnd) {
 }
 
 ; ─────────────────────────────────────────────────────────────
+OnTab(s, *) {
+    focused := ControlGetFocus("ahk_id " s.g.Hwnd)
+    if (focused = s.nameBox.Hwnd) {
+        s.contentBox.Focus()
+        SendMessage(0x00B1, 0, 0, s.contentBox)
+    } else if (focused = s.contentBox.Hwnd) {
+        s.tagBox.Focus()
+        ; Move caret to end
+        len := StrLen(s.tagBox.Value)
+        SendMessage(0x00B1, len, len, s.tagBox)
+    } else {
+        ; Tab from tag box or anywhere else — do nothing, stay put
+    }
+}
+
+OnSpace(s, *) {
+    focused := ControlGetFocus("ahk_id " s.g.Hwnd)
+    if (focused != s.tagBox.Hwnd) {
+        Send("{Space}")
+        return
+    }
+    ; Get caret position and current value
+    sel  := SendMessage(0x00B0, 0, 0, s.tagBox)
+    pos  := sel & 0xFFFF
+    val  := s.tagBox.Value
+
+    ; Find the current word being typed (from last space to caret)
+    start := 0
+    loop pos {
+        if (SubStr(val, A_Index, 1) = " ")
+            start := A_Index
+    }
+    word := Trim(SubStr(val, start + 1, pos - start))
+    word := RegExReplace(word, "[^a-zA-Z0-9_\-]", "")
+
+    if (word = "") {
+        ; Nothing to confirm — eat the space
+        return
+    }
+
+    ; Replace the raw word with #word + space
+    before := SubStr(val, 1, start)
+    after  := SubStr(val, pos + 1)
+    ; Strip any existing # the user may have typed
+    word   := LTrim(word, "#")
+    newVal := before . "#" . word . " " . after
+    s.tagBox.Value := newVal
+    newPos := StrLen(before) + StrLen(word) + 2  ; after "#word "
+    SendMessage(0x00B1, newPos, newPos, s.tagBox)
+}
+
 OnEnter(s, *) {
     focused := ControlGetFocus("ahk_id " s.g.Hwnd)
     if GetKeyState("Shift", "P") {
@@ -344,15 +401,33 @@ OnEnter(s, *) {
     if (focused = s.nameBox.Hwnd) {
         s.contentBox.Focus()
         SendMessage(0x00B1, 0, 0, s.contentBox)
-    } else if (focused = s.contentBox.Hwnd) {
+    } else if (focused = s.contentBox.Hwnd || focused = s.tagBox.Hwnd) {
         CreateNote(s)
     }
 }
 
 ; ─────────────────────────────────────────────────────────────
+; Parse tag box value into a clean list of tag strings
+ParseTags(tagBox) {
+    raw  := tagBox.Value
+    tags := []
+    loop parse, raw, " ", "`t`r`n" {
+        word := Trim(A_LoopField)
+        if (word = "")
+            continue
+        word := LTrim(word, "#")
+        word := RegExReplace(word, "[^a-zA-Z0-9_\-]", "")
+        if (word != "")
+            tags.Push(word)
+    }
+    return tags
+}
+
+; ─────────────────────────────────────────────────────────────
 CreateNote(s) {
-    name := Trim(s.nameBox.Value)
+    name    := Trim(s.nameBox.Value)
     content := s.contentBox.Value
+    tags    := ParseTags(s.tagBox)
 
     if (name = "")
         name := FormatTime(, "HH-mm dd-MM-yyyy")
@@ -360,13 +435,25 @@ CreateNote(s) {
     name := RegExReplace(name, '[\\/:*?"<>|]', "")
     path := s.vaultPath "\" name ".md"
 
+    ; Build file content — prepend YAML only if tags exist
+    fileContent := ""
+    if (tags.Length > 0) {
+        fileContent := "---`ntags:`n"
+        for t in tags
+            fileContent .= "  - " . t . "`n"
+        fileContent .= "---`n"
+        if (content != "")
+            fileContent .= "`n"
+    }
+    fileContent .= content
+
     try {
-        FileOpen(path, "w").Write(content)
+        FileOpen(path, "w").Write(fileContent)
         s.g.Destroy()
     } catch {
         fallbackPath := A_Desktop "\" name ".md"
         try {
-            FileOpen(fallbackPath, "w").Write(content)
+            FileOpen(fallbackPath, "w").Write(fileContent)
             s.errLabel.Text := "Vault unreachable — note saved to Desktop instead."
         } catch {
             s.errLabel.Text := "Could not save. Please check your vault path in Settings."
