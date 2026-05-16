@@ -1,56 +1,35 @@
-# Obsidian Quick Capture AHK Script
+# Obsidian Instant Capture
 
-This is an AutoHotKey script that allows user to write a ".md" file on a specific location. Mainly intended to use as lightweight Obsidian Quick Capture
+Instantly capture your thoughts, ideas and notes **even when Obsidian is closed**
 
+**Hit a hotkey → Type → Save → Done**
+
+No app switching. No launch required. Capture from anywhere without breaking your workflow
+
+Built with [AutoHotkey](https://www.autohotkey.com/) for speed and simplicity, this tool writes directly to your vault so your notes are ready the next time you open Obsidian.
 
 # Features
 
-- Small window popup when Hotkey is pressed that includes: Note's name/title, Note's content and keybindings tip
-- Lightweight and minimal
-- Does not need to open Obsidian app at all
-- Lives in your system tray 
-- Untitled notes automatically get timestamped title (Hour:Min DD-MM-YY Format)
-
+- Works without opening Obsidian
+- Always lives in your system tray (low resource usage)
+- Untitled notes automatically get timestamped title for fast workflow (Hour:Min DD-MM-YY Format)
+- Set your Hotkey to whatever you like (The default is `Alt + Shift + Q`)
 
 # Dependencies
 - [AutoHotkey v2.0](https://www.autohotkey.com/)
 
 
-# Installation
+# How To Set Up
 
-1) Download the ObsidianQuickCapture.ahk file from my repo
+1) Download the ObsidianInstantCapture.ahk file from my repo
 2) Download dependencies ([AutoHotkey v2.0](https://www.autohotkey.com/))
-3) Press windows + r
+3) Press `Win + R`
 4) Type shell:startup and enter 
-5) Put the ObsidianQuickCapture.ahk in that folder *(So that it turns on in startup)*
-6) Configure it by following the steps below
-7) Click it *(You only need to click it for the first time. If it doesn't work then try reloading the script from your system tray)*
+5) Put the ObsidianInstantCapture.ahk in that folder *(So that it turns on in startup)*
+6) Double-click the script to run it *(Only needed first time)*
+7) Press `Alt + Shift + Q` to open the capture window
+8) It'll ask for your vault's path first time, browse and select it (or paste the path)
 
+Done! You're ready to use it now! 
 
-
-# Configuration 
-### Hotkey Setup
-
-By default the hotkey is set to `Alt+Shift+Q`. To change it, go to ObsidianQuickCapture.ahk and open it in your code editor and just replace 
-
-```
-!+q
-```
-
-with whatever hotkey you want. Check out [list of hotkeys](https://www.autohotkey.com/docs/v2/KeyList.htm) for reference
-
-### Vault Setup
-
-By default the `.md` file is saved at `C:\Users\<YourUsername>\Desktop`. Change the 
-
-```
-path := A_Desktop
-```
-
-to your vault's path. eg.
-```
-path := "D:\Obsidian Vaults\Yggdrasil\" name ".md"
-```
-
-Now it should work perfectly! Press your hotkey to check it out! 🔥
-
+Note: If you want to change the hotkey to something else or change the file path then press the gear icon (Above Title) and it'll let you change the hotkey or file path
