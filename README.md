@@ -14,6 +14,7 @@ Built with [AutoHotkey](https://www.autohotkey.com/) for speed and simplicity, t
 - Always lives in your system tray (low resource usage)
 - Untitled notes automatically get timestamped title for fast workflow (Hour:Min DD-MM-YY Format)
 - Set your Hotkey to whatever you like (The default is `Alt + Shift + Q`)
+- Optional Properties tag support — add tags directly to your note's Obsidian Properties (The keybind is `Tab` inside main GUI)
 
 # Dependencies
 - [AutoHotkey v2.0](https://www.autohotkey.com/)
