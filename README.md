@@ -27,9 +27,12 @@ Built with [AutoHotkey](https://www.autohotkey.com/) for speed and simplicity, t
 4) Type shell:startup and enter 
 5) Put the ObsidianInstantCapture.ahk in that folder *(So that it turns on in startup)*
 6) Double-click the script to run it *(Only needed first time)*
-7) Press `Alt + Shift + Q` to open the capture window
-8) It'll ask for your vault's path first time, browse and select it (or paste the path)
+7) Press `Alt + Shift + Q`, it'll ask for your vault folder path first time. Browse and select it.
 
-Done! You're ready to use it now! 
+Then the capture window will open automatically when the hotkey is pressed from now on
 
-Note: If you want to change the hotkey to something else or change the file path then press the gear icon (Above Title) and it'll let you change the hotkey or file path
+Done! You're ready to use it!
+
+Note: If you want to change the hotkey to something else or change the file path then press the gear icon (Above Title) and it'll let you change the hotkey or file path.
+
+Also settings are saved to %AppData%\ObsidianInstantCapture\settings.ini — delete this file if you ever want to fully reset the configuration
