@@ -9,7 +9,7 @@ No app switching. No launch required. Capture from anywhere without breaking you
 <img width="800" alt="Screenshot (4217)" src="https://github.com/user-attachments/assets/169bf549-c85d-43e0-abf3-5b7a74c80df5" />
 <img width="800" alt="Screenshot (4218)" src="https://github.com/user-attachments/assets/7bb3776c-3a81-40d2-bb8b-a5bde41f1182" />
 
-Built with [AutoHotkey](https://www.autohotkey.com/) for speed and simplicity, this tool writes directly to your vault so your notes are ready the next time you open Obsidian.
+The tool directly saves note in ur obsidian vault
 
 # Features
 
@@ -17,7 +17,7 @@ Built with [AutoHotkey](https://www.autohotkey.com/) for speed and simplicity, t
 - Always lives in your system tray (low resource usage)
 - Untitled notes automatically get timestamped title for fast workflow (Hour:Min DD-MM-YY Format)
 - Set your Hotkey to whatever you like (The default is `Alt + Shift + Q`)
-- Optional Properties tag support — add tags directly to your note's Obsidian Properties (The keybind is `Tab` inside main GUI)
+- Optional Properties tag support. Add tags directly to your note's Obsidian Properties (The keybind is `Tab` inside main GUI)
 
 # Dependencies
 - [AutoHotkey v2.0](https://www.autohotkey.com/)
@@ -37,6 +37,6 @@ Then the capture window will open automatically when the hotkey is pressed from 
 
 Done! You're ready to use it!
 
-Note: If you want to change the hotkey to something else or change the file path then press the gear icon (Above Title) and it'll let you change the hotkey or file path.
+Note: If you want to change the hotkey to something else or change the file path then press the gear icon (Above Title) and it'll let you change the hotkey or file path
 
-Also settings are saved to %AppData%\ObsidianInstantCapture\settings.ini — delete this file if you ever want to fully reset the configuration
+Also settings are saved to `%AppData%\ObsidianInstantCapture\settings.ini`, delete this file if you ever want to fully reset the configuration
