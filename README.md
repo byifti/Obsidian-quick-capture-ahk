@@ -22,7 +22,7 @@ Built with [AutoHotkey](https://www.autohotkey.com/) for speed and simplicity, t
 
 # How To Set Up
 
-1) Download the ObsidianInstantCapture.ahk file from my repo
+1) Download the ObsidianInstantCapture.ahk file from releases
 2) Download dependencies ([AutoHotkey v2.0](https://www.autohotkey.com/))
 3) Press `Win + R`
 4) Type shell:startup and enter 
