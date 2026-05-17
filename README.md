@@ -6,6 +6,9 @@ Instantly capture your thoughts, ideas and notes **even when Obsidian is closed*
 
 No app switching. No launch required. Capture from anywhere without breaking your workflow
 
+<img width="800" alt="Screenshot (4217)" src="https://github.com/user-attachments/assets/169bf549-c85d-43e0-abf3-5b7a74c80df5" />
+<img width="800" alt="Screenshot (4218)" src="https://github.com/user-attachments/assets/7bb3776c-3a81-40d2-bb8b-a5bde41f1182" />
+
 Built with [AutoHotkey](https://www.autohotkey.com/) for speed and simplicity, this tool writes directly to your vault so your notes are ready the next time you open Obsidian.
 
 # Features
